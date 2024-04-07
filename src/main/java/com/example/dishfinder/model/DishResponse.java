@@ -1,4 +1,4 @@
-package com.example.dishfinder;
+package com.example.dishfinder.model;
 
 import lombok.Getter;
 

@@ -1,5 +1,7 @@
-package com.example.dishfinder;
+package com.example.dishfinder.controller;
 
+import com.example.dishfinder.model.DishResponse;
+import com.example.dishfinder.service.DishService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;

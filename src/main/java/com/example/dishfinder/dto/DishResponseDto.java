@@ -1,5 +1,6 @@
-package com.example.dishfinder;
+package com.example.dishfinder.dto;
 
+import com.example.dishfinder.model.Meal;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

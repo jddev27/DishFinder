@@ -1,5 +1,7 @@
-package com.example.dishfinder;
+package com.example.dishfinder.service;
 
+import com.example.dishfinder.model.DishResponse;
+import com.example.dishfinder.dto.DishResponseDto;
 import lombok.AllArgsConstructor;
 
 import org.springframework.stereotype.Service;

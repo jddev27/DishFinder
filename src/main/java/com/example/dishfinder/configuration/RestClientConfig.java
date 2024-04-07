@@ -1,4 +1,4 @@
-package com.example.dishfinder;
+package com.example.dishfinder.configuration;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
