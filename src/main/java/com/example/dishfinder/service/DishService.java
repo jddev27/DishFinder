@@ -33,7 +33,7 @@ public class DishService {
         this.restTemplate = restTemplate;
     }
 
-    public List<String> getDishByName(String name) {
+    public List<String> getIngredientsByRecipeName(String name) {
 
         String prompt = "Give me a list of most common ingredients for the following dish: " + name;
 
