@@ -1,39 +1,58 @@
 package com.example.dishfinder.service;
 
-import com.example.dishfinder.model.DishResponse;
-import com.example.dishfinder.dto.DishResponseDto;
+import com.example.dishfinder.dto.ChatRequest;
+import com.example.dishfinder.dto.ChatResponse;
 import lombok.AllArgsConstructor;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestClient;
+import org.springframework.web.client.RestTemplate;
 
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
-import java.util.Objects;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @AllArgsConstructor
 public class DishService {
 
 
-    private final RestClient restClient;
+    @Autowired
+    private RestTemplate restTemplate;
 
+    @Value("${openai.model}")
+    private String model;
 
-    public DishResponse getDishByName(String name) {
+    @Value("${openai.api.url}")
+    private String apiUrl;
 
-        String encodedName = URLEncoder.encode(name, StandardCharsets.UTF_8).replace("+", "%20");
+    public DishService() {
+    }
 
-        String uri = "https://www.themealdb.com/api/json/v1/1/search.php?s="+encodedName ;
-        DishResponseDto result = restClient.get()
-                .uri(uri)
-                .retrieve()
-                .body(DishResponseDto.class);
+    public DishService(RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
+    }
 
+    public List<String> getDishByName(String name) {
 
-        DishResponse response = new DishResponse();
-        if (Objects.requireNonNull(result).getMeals() != null) {
-            response.setIngredients(result.getMeals().getFirst());
+        String prompt = "Give me a list of most common ingredients for the following dish: " + name;
+
+        ChatRequest request = new ChatRequest(model, prompt);
+
+        ChatResponse response = restTemplate.postForObject(apiUrl, request, ChatResponse.class);
+
+        if(response == null || response.getChoices() == null || response.getChoices().isEmpty())
+        {
+            return null;
         }
-        return response;
+
+        String content = response.getChoices().get(0).getMessage().getContent();
+        String[] items= content.split("\n");
+        List<String> dishList = new ArrayList<>();
+
+        for (String item : items) {
+            dishList.add(item.replaceAll("^\\d+\\.\\s*", ""));
+        }
+      return dishList;
     }
 }

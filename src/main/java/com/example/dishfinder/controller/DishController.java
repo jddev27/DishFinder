@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(path = "api/dish")
 public class DishController {
@@ -18,7 +20,7 @@ public class DishController {
     }
 
     @GetMapping(path = "{name}")
-    public DishResponse getDishByName(@PathVariable("name") String name){
+    public List<String> getDishByName(@PathVariable("name") String name){
 
         return dishService.getDishByName(name);
     }
