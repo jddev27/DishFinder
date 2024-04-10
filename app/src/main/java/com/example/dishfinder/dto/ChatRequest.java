@@ -3,6 +3,7 @@ package com.example.dishfinder.dto;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class ChatRequest {
     private String model;
     private List<Message> messages;
