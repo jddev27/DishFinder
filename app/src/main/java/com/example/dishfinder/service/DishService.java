@@ -3,6 +3,7 @@ package com.example.dishfinder.service;
 import com.example.dishfinder.dto.ChatRequest;
 import com.example.dishfinder.dto.ChatResponse;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -26,6 +27,7 @@ public class DishService {
         this.restTemplate = restTemplate;
     }
 
+    @Cacheable("ingredients")
     public List<String> getIngredientsByRecipeName(String name) {
 
         String prompt = "Give me a list of most common ingredients for the following dish: " + name;
