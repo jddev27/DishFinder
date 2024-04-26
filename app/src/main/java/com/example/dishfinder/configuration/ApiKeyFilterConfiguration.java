@@ -3,9 +3,8 @@ package com.example.dishfinder.configuration;
 import com.example.dishfinder.filter.ApiKeyFilter;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 
-@Configuration
+//@Configuration
 public class ApiKeyFilterConfiguration {
 
     @Bean

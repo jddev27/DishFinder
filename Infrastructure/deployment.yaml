@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dishfinder-deployment
+  labels:
+    pod.name: dishfinder
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      pod.name: dishfinder
+  template:
+    metadata:
+      name: dishfinder
+      labels:
+        pod.name: dishfinder
+    spec:
+      containers:
+        - name: dishfinder
+          imagePullPolicy: Never
+          image: dishfinderapp:latest
+          env:
+            - name: ENV_OPENAI_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  key: open-api-key
+                  name: dishfinder-secrets
+            - name: ENV_APP_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  key: app-api-key
+                  name: dishfinder-secrets
+          ports:
+            - containerPort: 8080

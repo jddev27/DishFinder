@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  app:
+    image: dishfinderapp:latest
+    deploy:
+      replicas: 1
+    ports:
+      - "8080:8080"
+    secrets:
+      - OPENAI_API_KEY
+      - APP_API_KEY
+    environment:
+      OPENAI_API_KEY: /run/secrets/OPENAI_API_KEY
+      APP_API_KEY: /run/secrets/APP_API_KEY
+
+secrets:
+  OPENAI_API_KEY:
+    external: true
+  APP_API_KEY:
+    external: true
